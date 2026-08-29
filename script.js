@@ -1,6 +1,15 @@
 document.querySelectorAll('[data-compare]').forEach(box => {
   const input = box.querySelector('input');
-  input.addEventListener('input', e => box.style.setProperty('--pos', e.target.value + '%'));
+  let rafId = null;
+  const apply = () => {
+    box.style.setProperty('--pos', input.value + '%');
+    rafId = null;
+  };
+  const queue = () => {
+    if (rafId === null) rafId = requestAnimationFrame(apply);
+  };
+  input.addEventListener('input', queue, { passive: true });
+  input.addEventListener('change', queue, { passive: true });
 });
 
 const obs = new IntersectionObserver(entries => entries.forEach(e => {

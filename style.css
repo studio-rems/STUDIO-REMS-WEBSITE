@@ -104,17 +104,19 @@ img{display:block;max-width:100%}
 
 .compare-section{background:#f1f3f5}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.compare-grid.six{grid-template-columns:repeat(3,1fr)}
 .compare-card{background:#fff;border:1px solid var(--line);padding:16px}
 .compare-card.wide{grid-column:span 2}
-.compare{height:440px;position:relative;overflow:hidden;background:#d2d6da;--pos:50%;user-select:none}
+.compare{height:440px;position:relative;overflow:hidden;background:#d2d6da;--pos:50%;user-select:none;isolation:isolate}
 .compare.small{height:360px}
-.compare .layer{position:absolute;inset:0;background-size:cover;background-position:center}
-.compare .after{clip-path:inset(0 0 0 var(--pos))}
-.compare:before{content:"";position:absolute;z-index:3;top:0;bottom:0;left:var(--pos);width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
-.compare-handle{position:absolute;z-index:4;left:var(--pos);top:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:white;color:var(--navy);font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.22)}
+.compare-grid.six .compare{height:300px}
+.compare .layer{position:absolute;inset:0;background-size:cover;background-position:center;backface-visibility:hidden;transform:translateZ(0)}
+.compare .after{clip-path:inset(0 0 0 var(--pos));will-change:clip-path}
+.compare:before{content:"";position:absolute;z-index:3;top:0;bottom:0;left:var(--pos);width:2px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12);will-change:left}
+.compare-handle{position:absolute;z-index:4;left:var(--pos);top:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:white;color:var(--navy);font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.22);will-change:left;pointer-events:none}
 .compare-label{position:absolute;z-index:5;top:15px;padding:7px 10px;background:rgba(15,23,38,.72);color:#fff;font:500 10px "DM Mono";letter-spacing:.09em}
 .compare-label.l{left:15px}.compare-label.r{right:15px;background:var(--blue)}
-.compare input{position:absolute;z-index:8;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.compare input{position:absolute;z-index:8;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y;-webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none}
 .compare-card h3{font-size:16px;margin:15px 0 5px;color:var(--navy)}
 .compare-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
 
@@ -190,6 +192,7 @@ textarea{resize:vertical;min-height:100px}
  .diff-grid{grid-template-columns:1fr 1fr}.pricing{grid-template-columns:1fr}
  .pricing-intro{display:block}.pricing-intro p{margin-top:18px}
  .contact-grid{gap:40px}
+ .compare-grid.six{grid-template-columns:1fr 1fr}
 }
 @media(max-width:680px){
  .container{width:min(100% - 30px,var(--max))}
@@ -198,8 +201,10 @@ textarea{resize:vertical;min-height:100px}
  .hero-visual{min-height:410px}.hero-stats{grid-template-columns:1fr}.stat{padding:16px 0;border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}
  .section{padding:75px 0}
  .problem-grid,.compare-grid,.services-grid{grid-template-columns:1fr}.compare-card.wide{grid-column:auto}
+ .compare-grid.six{grid-template-columns:1fr}
  .problem,.solution{padding:30px}.service{padding:30px}
  .compare{height:330px}.compare.small{height:310px}
+ .compare-grid.six .compare{height:280px}
  .workflow{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:25px;margin-right:0;min-height:auto}
  .diff-grid{grid-template-columns:1fr}
  .form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.contact-form{padding:26px 20px}
